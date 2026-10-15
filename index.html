@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulir Layanan PPID | Kementerian Perhubungan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="tes.css">
+</head>
+<body>
+  <nav class="navbar navnaba tihubar-expand-lg site-nav">
+    <div class="container-fluid nav-inner">
+      <a class="navbar-brand brand d-flex align-items-center" href="#">
+        <img src="logo-perhubungan.png" alt="Logo Kementerian Perhubungan" class="brand-logo">
+        <span><strong>Direktorat Kelaikudaraan dan Pengoperasian Perhubungan Udara</strong><small>Kementerian Perhubungan RI</small></span>
+      </a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-inner">
+      <a class="back-link" href="https://imsis-djpu.kemenhub.go.id/PortalDKPPU/index.php"><i class="bi bi-arrow-left"></i> Portal DKPPU <span></span></a>
+      <div class="hero-copy">
+        <h1>Formulir Layanan PPID</h1>
+        <p>Ajukan permohonan informasi atau laporkan pengaduan terkait layanan penerbangan.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container form-wrap" id="form">
+    <form novalidate>
+      <section class="card form-card combined-request-card">
+        <div class="identity-card">
+          <div class="section-heading"><h2>Data Identitas Pemohon</h2></div>
+          <div class="row g-3">
+            <div class="col-md-6"><label for="name" class="form-label">Nama Lengkap <b>*</b></label><div class="input-icon"><input id="name" class="form-control" placeholder="Masukkan nama lengkap" required></div></div>
+            <div class="col-md-6"><label for="email" class="form-label">Alamat Email Aktif <b>*</b></label><div class="input-icon"><input id="email" type="email" class="form-control" placeholder="nama@email.com" required></div></div>
+            <div class="col-12"><label for="address" class="form-label">Alamat Domisili Lengkap <b>*</b></label><textarea id="address" class="form-control" placeholder="Alamat lengkap sesuai identitas / domisili tempat tinggal..." required></textarea></div>
+          </div>
+        </div>
+        <div class="request-card">
+          <div class="section-heading"><h2>Rincian Informasi yang Dimohonkan</h2></div>
+          <div class="mb-3"><label for="service" class="form-label">Jenis Layanan<b>*</b></label><select id="service" class="form-select" required><option value="">-- Pilih Jenis Layanan --</option><option>Permintaan Informasi</option><option>Pelanggaran Peraturan</option><option>Lain-lain</option></select></div>
+          <div class="mb-3"><label for="details" class="form-label">Detail Keterangan<b>*</b><small class="label-note">0 / 1000 Karakter</small></label><textarea id="details" class="form-control details-area" maxlength="1000" placeholder="Tuliskan detail permohonan atau pengaduan" required></textarea></div>
+          <div><label for="file" class="form-label">Upload Berkas Pendukung (KTP / Surat Kuasa) <small class="label-note">Opsional · PDF, JPG, PNG (Maks 5 MB)</small></label><div class="file-upload-row"><input id="file" class="form-control file-picker" type="file" accept=".pdf,.jpg,.jpeg,.png"><button id="previewFileButton" type="button" class="btn file-preview-button" disabled>Preview</button></div></div>
+        </div>
+      </section>
+
+      <section class="card form-card verification-card">
+          <div class="section-heading"><h2>Verifikasi &amp; Persetujuan</h2></div>
+          <div class="captcha-row"><div class="captcha-code"><i class="bi bi-lock-fill"></i><span id="captchaText">LDW455</span><button type="button" aria-label="Muat ulang kode"><i class="bi bi-arrow-repeat"></i></button></div><input class="form-control" placeholder="Masukkan kode kemanan di samping" aria-label="Kode keamanan" required></div>
+          <label class="agreement"><span>PPID DKPPU melayani permohonan informasi dan pengaduan masyarakat sesuai UU No. 14 Tahun 2008 dan PM 46 Tahun 2018.</span></label>
+      </section>
+      <div class="card action-card"><div class="ms-auto d-flex gap-2">
+        <button type="reset" class="btn btn-reset">Reset Form
+      </button><button type="submit" class="btn btn-submit">Kirim Permohonan <i class="bi bi-send"></i></button></div></div>
+    </form>
+  </main>
+  <footer class="site-footer"><div class="footer-inner"><span>© 2025 Kementerian Perhubungan Republik Indonesia. Hak Cipta Dilindungi Undang-Undang.</span><nav><a href="#">Syarat &amp; Ketentuan</a><a href="#">Kebijakan Privasi</a><a href="#">Peta Situs</a></nav></div></footer>
+    <button id="backToTop" class="back-to-top" aria-label="Kembali ke atas">
+    <i class="bi bi-arrow-up"></i>
+    </button>
+    <dialog id="filePreviewDialog" class="file-preview-dialog" aria-labelledby="filePreviewTitle">
+      <div class="file-preview-dialog-header"><h2 id="filePreviewTitle">Preview file</h2><button id="closeFilePreview" type="button" class="file-preview-close" aria-label="Tutup preview">&times;</button></div>
+      <div id="filePreviewContent" class="file-preview-content"></div>
+    </dialog>
+    <script>
+        const backToTop = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+            backToTop.classList.add("show");
+            } else {
+            backToTop.classList.remove("show");
+            }
+        });
+
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+            });
+        });
+
+        const fileInput = document.getElementById("file");
+        const previewButton = document.getElementById("previewFileButton");
+        const previewDialog = document.getElementById("filePreviewDialog");
+        const previewContent = document.getElementById("filePreviewContent");
+        const previewTitle = document.getElementById("filePreviewTitle");
+        const form = document.querySelector("form");
+        let previewUrl;
+        const getFieldContainer = (field) => field.type === "file"
+            ? field.closest(".file-upload-row")
+            : field.closest(".input-icon, .captcha-row") || field;
+
+        form.addEventListener("submit", (event) => {
+            const invalidFields = [...form.querySelectorAll(":invalid")];
+            if (!invalidFields.length) return;
+            event.preventDefault();
+
+            const isEmpty = (field) => field.type === "file"
+                ? !field.files.length
+                : !field.value.trim();
+            form.querySelectorAll(".field-error").forEach((message) => message.remove());
+            form.querySelectorAll('[aria-invalid="true"]').forEach((field) => field.removeAttribute("aria-invalid"));
+
+            invalidFields.forEach((field) => {
+                const message = document.createElement("div");
+                message.className = "field-error";
+                message.setAttribute("role", "alert");
+                message.textContent = isEmpty(field) ? "Kolom ini belum diisi." : "Periksa kembali isian ini.";
+                field.setAttribute("aria-invalid", "true");
+                getFieldContainer(field).insertAdjacentElement("afterend", message);
+            });
+
+            const firstField = invalidFields[0];
+            firstField.scrollIntoView({ behavior: "smooth", block: "center" });
+            firstField.focus({ preventScroll: true });
+        });
+
+        const clearFieldError = (event) => {
+            const field = event.target;
+            if (!field.matches("input, textarea, select") || !field.validity.valid) return;
+            const fieldContainer = getFieldContainer(field);
+            if (fieldContainer.nextElementSibling?.classList.contains("field-error")) {
+                fieldContainer.nextElementSibling.remove();
+            }
+            field.removeAttribute("aria-invalid");
+        };
+        form.addEventListener("input", clearFieldError);
+        form.addEventListener("change", clearFieldError);
+
+        fileInput.addEventListener("change", () => {
+            if (previewDialog.open) previewDialog.close();
+            previewContent.replaceChildren();
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+            const file = fileInput.files[0];
+            if (!file) {
+                previewButton.disabled = true;
+                return;
+            }
+
+            previewUrl = URL.createObjectURL(file);
+            previewButton.disabled = false;
+        });
+
+        previewButton.addEventListener("click", () => {
+            const file = fileInput.files[0];
+            if (!file || !previewUrl) return;
+            previewContent.replaceChildren();
+            previewTitle.textContent = file.name;
+            if (file.type.startsWith("image/")) {
+                const image = document.createElement("img");
+                image.className = "file-preview-image";
+                image.src = previewUrl;
+                image.alt = `Pratinjau ${file.name}`;
+                previewContent.append(image);
+            } else {
+                const pdf = document.createElement("iframe");
+                pdf.className = "file-preview-pdf";
+                pdf.src = previewUrl;
+                pdf.title = `Pratinjau ${file.name}`;
+                previewContent.append(pdf);
+            }
+            previewDialog.showModal();
+        });
+
+        document.getElementById("closeFilePreview").addEventListener("click", () => previewDialog.close());
+        previewDialog.addEventListener("click", (event) => {
+            if (event.target === previewDialog) previewDialog.close();
+        });
+
+        document.querySelector("form").addEventListener("reset", () => {
+            if (previewDialog.open) previewDialog.close();
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+            previewUrl = undefined;
+            previewContent.replaceChildren();
+            previewButton.disabled = true;
+        });
+        </script>
+</body>
+</html>
